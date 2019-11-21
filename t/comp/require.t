@@ -128,13 +128,11 @@ write_file('bleah.pm', "print 'ok $i - require bleah.pm\n'; 1;\n");
 require "bleah.pm";
 $i++;
 
-# run-time failure in require
+# require can return false
 do_require "0;\n";
-print "# $@\nnot " unless $@ =~ /did not return a true/;
-print "ok ",$i++," - require returning 0\n";
-
-print "not " if exists $INC{'bleah.pm'};
-print "ok ",$i++," - %INC not updated\n";
+print "ok ",$i++," - require can return 0\n";
+print "ok ",$i++," - %INC updated\n";
+delete $INC{"bleah.pm"};
 
 my $flag_file = 'bleah.flg';
 # run-time error in require

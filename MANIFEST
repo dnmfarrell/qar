@@ -1514,12 +1514,10 @@ cpan/parent/t/lib/Dummy.pm			test files for parent.pm
 cpan/parent/t/lib/Dummy/Outside.pm		test files for parent.pm
 cpan/parent/t/lib/Dummy2.plugin			test files for parent.pm
 cpan/parent/t/lib/FileThatOnlyExistsAsPMC.pmc	test files for parent.pm
-cpan/parent/t/lib/ReturnsFalse.pm		test files for parent.pm
 cpan/parent/t/parent.t				tests for parent.pm
 cpan/parent/t/parent-classfromclassfile.t	tests for parent.pm
 cpan/parent/t/parent-classfromfile.t		tests for parent.pm
 cpan/parent/t/parent-pmc.t			tests for parent.pm
-cpan/parent/t/parent-returns-false.t		tests for parent.pm
 cpan/parent/t/rt62341.t.disabled		test files for parent.pm
 cpan/Perl-OSType/lib/Perl/OSType.pm			Perl::OSType
 cpan/Perl-OSType/t/OSType.t			Perl::OSType
