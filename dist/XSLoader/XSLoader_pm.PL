@@ -100,7 +100,7 @@ my $to_print = <<'EOT';
 EOT
 
 $to_print =~ s~regexp~
-    $^O eq 'MSWin32' || $^O eq 'os2' || $^O eq 'cygwin' || $^O eq 'amigaos'
+    $^O eq 'MSWin32' || $^O eq 'os2' || $^O eq 'cygwin'
         ? '^(?:[A-Za-z]:)?[\\\/]' # Optional drive letter
         : '^/'
 ~e;

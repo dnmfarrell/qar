@@ -68,7 +68,6 @@ my %OSTYPES = qw(
   VMS         VMS
   vos         VOS
   riscos      RiscOS
-  amigaos     Amiga
   mpeix       MPEiX
 );
 

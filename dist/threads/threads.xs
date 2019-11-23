@@ -48,10 +48,6 @@
 
 #ifdef USE_ITHREADS
 
-#ifdef __amigaos4__
-#  undef YIELD
-#  define YIELD sleep(0)
-#endif
 #ifdef WIN32
 #  include <windows.h>
    /* Supposed to be in Winbase.h */
@@ -150,7 +146,7 @@ typedef struct {
 
 #define MY_POOL (*my_poolp)
 
-#if defined(WIN32) || (defined(__amigaos4__) && defined(__NEWLIB__))
+#if defined(WIN32)
 #  undef THREAD_SIGNAL_BLOCKING
 #else
 #  define THREAD_SIGNAL_BLOCKING

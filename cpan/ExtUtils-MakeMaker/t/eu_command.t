@@ -93,7 +93,7 @@ BEGIN {
     ok( -s $Testfile, "eqtime doesn't clear the file being equalized" );
 
     SKIP: {
-        if ($^O eq 'amigaos' || $^O eq 'os2' || $^O eq 'MSWin32' ||
+        if ($^O eq 'os2' || $^O eq 'MSWin32' ||
             $^O eq 'NetWare' || $^O eq 'dos' || $^O eq 'cygwin'  ||
             $^O eq 'MacOS'
            ) {
@@ -133,7 +133,7 @@ BEGIN {
 
 
     SKIP: {
-        if ($^O eq 'amigaos' || $^O eq 'os2' || $^O eq 'MSWin32' ||
+        if ($^O eq 'os2' || $^O eq 'MSWin32' ||
             $^O eq 'NetWare' || $^O eq 'dos' || $^O eq 'cygwin'  ||
             $^O eq 'MacOS'   || $^O eq 'haiku'
            ) {

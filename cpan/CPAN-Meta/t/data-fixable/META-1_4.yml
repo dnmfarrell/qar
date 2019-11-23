@@ -40,9 +40,6 @@ provides:
   Module::Build::PPMMaker:
     file: lib/Module/Build/PPMMaker.pm
     version: 0.36_08
-  Module::Build::Platform::Amiga:
-    file: lib/Module/Build/Platform/Amiga.pm
-    version: 0.36_08
   Module::Build::Platform::Default:
     file: lib/Module/Build/Platform/Default.pm
     version: 0.36_08

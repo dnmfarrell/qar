@@ -1541,14 +1541,6 @@ We then determine what the console should be on various systems:
         $console = "con";
     }
 
-=item * AmigaOS - use C<CONSOLE:>.
-
-=cut
-
-    elsif ( $^O eq 'amigaos' ) {
-        $console = "CONSOLE:";
-    }
-
 =item * VMS - use C<sys$command>.
 
 =cut
@@ -8970,7 +8962,7 @@ Just checks the contents of C<$^O> and sets the C<$doccmd> global accordingly.
 =cut
 
 sub setman {
-    $doccmd = $^O !~ /^(?:MSWin32|VMS|os2|dos|amigaos|riscos|NetWare)\z/s
+    $doccmd = $^O !~ /^(?:MSWin32|VMS|os2|dos|riscos|NetWare)\z/s
       ? "man"         # O Happy Day!
       : "perldoc";    # Alas, poor unfortunates
 } ## end sub setman

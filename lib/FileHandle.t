@@ -62,7 +62,7 @@ SKIP: {
 
     my ($rd,$wr) = FileHandle::pipe;
     my $non_forking = (
-        $^O eq 'VMS' || $^O eq 'os2' || $^O eq 'amigaos' ||
+        $^O eq 'VMS' || $^O eq 'os2' ||
         $^O eq 'MSWin32' || $^O eq 'NetWare' || $Config{d_fork} ne 'define'
     );
     my $content = "Writing to one end of a pipe, reading from the other\n";

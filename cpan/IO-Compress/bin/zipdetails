@@ -84,7 +84,6 @@ my %ZIP_CompressionMethods =
 
 my %OS_Lookup = (
     0   => "MS-DOS",
-    1   => "Amiga",
     2   => "OpenVMS",
     3   => "Unix",
     4   => "VM/CMS",

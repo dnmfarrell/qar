@@ -1633,7 +1633,6 @@ doc: $(PERLEXE) $(PERLDLL) ..\pod\perltoc.pod
 utils: $(HAVEMINIPERL) ..\utils\Makefile
 	cd ..\utils && $(PLMAKE) PERL=$(MINIPERL)
 	copy ..\README.aix      ..\pod\perlaix.pod
-	copy ..\README.amiga    ..\pod\perlamiga.pod
 	copy ..\README.android  ..\pod\perlandroid.pod
 	copy ..\README.bs2000   ..\pod\perlbs2000.pod
 	copy ..\README.cn       ..\pod\perlcn.pod
@@ -1698,7 +1697,6 @@ distclean: realclean
 	-del /f $(LIBDIR)\buildcustomize.pl
 	-del /f $(DISTDIR)\XSLoader\XSLoader.pm
 	-del /f *.def *.map
-	-if exist $(LIBDIR)\Amiga rmdir /s /q $(LIBDIR)\Amiga
 	-if exist $(LIBDIR)\App rmdir /s /q $(LIBDIR)\App
 	-if exist $(LIBDIR)\Archive rmdir /s /q $(LIBDIR)\Archive
 	-if exist $(LIBDIR)\Attribute rmdir /s /q $(LIBDIR)\Attribute
@@ -1762,7 +1760,7 @@ distclean: realclean
 	-if exist $(LIBDIR)\Win32API rmdir /s /q $(LIBDIR)\Win32API
 	-if exist $(LIBDIR)\XS rmdir /s /q $(LIBDIR)\XS
 	-cd $(PODDIR) && del /f *.html *.bat roffitall \
-	    perl5317delta.pod perlaix.pod perlamiga.pod perlandroid.pod \
+	    perl5317delta.pod perlaix.pod perlandroid.pod \
 	    perlapi.pod perlbs2000.pod perlcn.pod perlcygwin.pod \
 	    perldos.pod perlfreebsd.pod perlhaiku.pod perlhpux.pod \
 	    perlhurd.pod perlintern.pod perlirix.pod perljp.pod perlko.pod \

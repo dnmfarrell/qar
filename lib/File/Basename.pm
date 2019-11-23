@@ -135,10 +135,6 @@ sub fileparse {
     ($dirpath,$basename) = ($fullname =~ /^(.*:)?(.*)/s);
     $dirpath = ':' unless $dirpath;
   }
-  elsif ($type eq "AmigaOS") {
-    ($dirpath,$basename) = ($fullname =~ /(.*[:\/])?(.*)/s);
-    $dirpath = './' unless $dirpath;
-  }
   elsif ($type eq 'VMS' ) {
     ($dirpath,$basename) = ($fullname =~ /^(.*[:>\]])?(.*)/s);
     $dirpath ||= '';  # should always be defined
@@ -248,11 +244,10 @@ expect.  To be safe, if you want the directory name of a path use
 C<fileparse()>.
 
 Only on VMS (where there is no ambiguity between the file and directory
-portions of a path) and AmigaOS (possibly due to an implementation quirk in
-this module) does C<dirname()> work like C<fileparse($path)>, returning just the
-$dirs.
+portions of a path) does C<dirname()> work like C<fileparse($path)>, returning
+just the $dirs.
 
-    # On VMS and AmigaOS
+    # On VMS
     my $dirs = dirname($path);
 
 When using Unix or MSDOS syntax this emulates the C<dirname(1)> shell function
@@ -310,11 +305,6 @@ sub dirname {
 	    _strip_trailing_sep($dirname);
 	}
     }
-    elsif ($type eq 'AmigaOS') {
-        if ( $dirname =~ /:\z/) { return $dirname }
-        chop $dirname;
-        $dirname =~ s{[^:/]+\z}{} unless length($basename);
-    }
     else {
         _strip_trailing_sep($dirname);
         unless( length($basename) ) {
@@ -353,7 +343,7 @@ Normally File::Basename will assume a file path type native to your current
 operating system (ie. /foo/bar style on Unix, \foo\bar on Windows, etc...).
 With this function you can override that assumption.
 
-Valid $types are "MacOS", "VMS", "AmigaOS", "OS2", "RISCOS",
+Valid $types are "MacOS", "VMS", "OS2", "RISCOS",
 "MSWin32", "DOS" (also "MSDOS" for backwards bug compatibility),
 "Epoc" and "Unix" (all case-insensitive).  If an unrecognized $type is
 given "Unix" will be assumed.
@@ -370,7 +360,7 @@ call only.
 
 BEGIN {
 
-my @Ignore_Case = qw(MacOS VMS AmigaOS OS2 RISCOS MSWin32 MSDOS DOS Epoc);
+my @Ignore_Case = qw(MacOS VMS OS2 RISCOS MSWin32 MSDOS DOS Epoc);
 my @Types = (@Ignore_Case, qw(Unix));
 
 sub fileparse_set_fstype {

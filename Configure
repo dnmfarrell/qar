@@ -66,10 +66,7 @@ EOF
 	exit 1
 fi
 
-if test -f /sys/utilities/MultiView ; then
-	# AmigaOS, test -c for /dev/null is not useful
-	:
-elif test ! -c /dev/null ; then
+if test ! -c /dev/null ; then
 	cat <<EOF
 ***
 *** I'm sorry, but /dev/null appears to be a file rather than a device.
@@ -1411,10 +1408,7 @@ if test -f /etc/unixtovms.exe; then
 fi
 
 : Set executable suffix now -- needed before hints available
-if test -f "/libs/version.library"; then
-: Amiga OS
-    _exe=""
-elif test -f "/system/gnu_library/bin/ar.pm"; then
+if test -f "/system/gnu_library/bin/ar.pm"; then
 : Stratus VOS
     _exe=".pm"
 elif test -n "$DJGPP"; then
@@ -3383,7 +3377,6 @@ EOM
 	$test -f /etc/saf/_sactab && osname=svr4
 	$test -d /usr/include/minix && osname=minix && osvers=`$uname -r`
 	$test -f /system/gnu_library/bin/ar.pm && osname=vos
-	$test -f /sys/utilities/MultiView && osname=amigaos
 	if $test -d /MachTen -o -d /MachTen_Folder; then
 		osname=machten
 		if $test -x /sbin/version; then
@@ -5503,21 +5496,17 @@ default|recommended)
 	# is to add the flag to the flags passed to the compiler at link time,
 	# as that way the compiler can do the right implementation dependant
 	# thing. (NWC)
-	case "$osname" in
-	amigaos) ;; # -fstack-protector builds but doesn't work
-	*)	case "$gccversion" in
-		?*)	set stack-protector-strong -fstack-protector-strong
-			eval $checkccflag
-			case "$dflt" in
-			*-fstack-protector-strong*) ;; # It got added.
-			*) # Try the plain/older -fstack-protector.
-			   set stack-protector -fstack-protector
-			   eval $checkccflag
-			   ;;
-			esac
-			;;
-		esac
-		;;
+	case "$gccversion" in
+  ?*)	set stack-protector-strong -fstack-protector-strong
+    eval $checkccflag
+    case "$dflt" in
+    *-fstack-protector-strong*) ;; # It got added.
+    *) # Try the plain/older -fstack-protector.
+       set stack-protector -fstack-protector
+       eval $checkccflag
+       ;;
+    esac
+    ;;
 	esac
 	;;
 esac
@@ -5901,9 +5890,6 @@ $rm_try
 : determine filename position in cpp output
 echo " "
 echo "Computing filename position in cpp output for #include directives..." >&4
-case "$osname" in
-amigaos) fieldn=3 ;;  # Workaround for a bug in abc (pdksh).
-esac
 case "$fieldn" in
 '')
 case "$osname" in
@@ -17017,8 +17003,6 @@ eval $inlibc
 : the executing program.  We will honor hints of d_procselfexe=$undef
 : or procselfexe being non-empty, otherwise will try to determine both
 : if we have readlink.
-: AmigaOS will attempt to mount proc: aka /proc, if /proc/... is
-: referenced, and AmigaOS does not have a proc filesystem anyway.
 echo " "
 val="$undef"
 if $test "X$d_procselfexe" = Xundef; then
@@ -22885,7 +22869,7 @@ $echo "Guessing which symbols your C compiler and preprocessor define..." >&4
 $cat <<'EOSH' > Cppsym.know
 a29k aarch64 ABI64 aegis AES_SOURCE AIX AIX32 AIX370 AIX41 AIX42
 AIX43 aixpc AIX_SOURCE alliant ALL_SOURCE alpha AM29000 am29000
-AMD64 amd64 amiga AMIGAOS AMIX ansi ANSI_C_SOURCE apollo arch_ppc
+AMD64 amd64 AMIX ansi ANSI_C_SOURCE apollo arch_ppc
 arch_pwr ardent ARM ARM32 atarist att386 att3b
 BeOS BIG_ENDIAN BIT_MSF BSD bsd bsd43 bsd4_2 BSD4_3 bsd4_3 bsd4_4
 BSDCOMPAT bsdi BSD_4_3 BSD_4_4 BSD_NET2 BSD_TIME BSD_TYPES bull
@@ -23414,11 +23398,6 @@ known_extensions=`echo $nonxs_extensions $xs_extensions  | tr ' ' $trnl | $sort 
 avail_ext=''
 for xxx in $xs_extensions ; do
 	case "$xxx" in
-	Amiga*)
-		case "$osname" in
-		amigaos) avail_ext="$avail_ext $xxx" ;;
-		esac
-		;;
 	DB_File|db_file)
 		case "$i_db" in
 		$define) avail_ext="$avail_ext $xxx" ;;
@@ -23488,14 +23467,8 @@ for xxx in $xs_extensions ; do
 		esac
 		;;
 	Sys/Syslog|sys/syslog)
-		case $osname in
-			amigaos) ;; # not really very useful on AmigaOS
-			*)
-			: XXX syslog requires socket
-			case "$d_socket" in
-			true|$define|y) avail_ext="$avail_ext $xxx" ;;
-			esac
-			;;
+		case "$d_socket" in
+		true|$define|y) avail_ext="$avail_ext $xxx" ;;
 		esac
 		;;
 	Thread|thread)

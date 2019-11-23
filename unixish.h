@@ -123,27 +123,12 @@
 
 #define Stat(fname,bufptr) stat((fname),(bufptr))
 
-#ifdef __amigaos4__
-int afstat(int fd, struct stat *statb);
-#  define Fstat(fd,bufptr) afstat((fd),(bufptr))
-#endif
-
 #ifndef Fstat
 #  define Fstat(fd,bufptr)   fstat((fd),(bufptr))
 #endif
 
 #define Fflush(fp)         fflush(fp)
 #define Mkdir(path,mode)   mkdir((path),(mode))
-
-#if defined(__amigaos4__)
-#  define PERL_SYS_INIT_BODY(c,v)					\
-	MALLOC_CHECK_TAINT2(*c,*v) PERL_FPU_INIT; PERLIO_INIT; MALLOC_INIT; amigaos4_init_fork_array(); amigaos4_init_environ_sema();
-#  define PERL_SYS_TERM_BODY()                         \
-    HINTS_REFCNT_TERM; KEYWORD_PLUGIN_MUTEX_TERM;      \
-    OP_CHECK_MUTEX_TERM; OP_REFCNT_TERM; PERLIO_TERM;  \
-    MALLOC_TERM; LOCALE_TERM; USER_PROP_MUTEX_TERM;    \
-    amigaos4_dispose_fork_array();
-#endif
 
 #ifndef PERL_SYS_INIT_BODY
 #  define PERL_SYS_INIT_BODY(c,v)					\

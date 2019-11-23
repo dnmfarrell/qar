@@ -391,7 +391,7 @@ else {
 SKIP: {
     # test bug http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=487319
     skip "Don't need Force_Writeable semantics on $^O", 6
-        if grep {$^O eq $_} qw(amigaos dos epoc MSWin32 MacOS os2);
+        if grep {$^O eq $_} qw(dos epoc MSWin32 MacOS os2);
     skip "Symlinks not available", 6 unless $Config{d_symlink};
     $dir  = 'bug487319';
     $dir2 = 'bug487319-symlink';
