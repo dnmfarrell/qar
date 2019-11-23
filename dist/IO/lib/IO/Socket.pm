@@ -19,7 +19,7 @@ use Errno;
 # legacy
 
 require IO::Socket::INET;
-require IO::Socket::UNIX if ($^O ne 'epoc' && $^O ne 'symbian');
+require IO::Socket::UNIX if $^O ne 'epoc';
 
 our @ISA = qw(IO::Handle);
 

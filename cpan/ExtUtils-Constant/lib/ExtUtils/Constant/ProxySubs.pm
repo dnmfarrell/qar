@@ -332,8 +332,6 @@ EXPLODE
 
     print $c_fh <<"MISSING";
 
-#ifndef SYMBIAN
-
 /* Store a hash of all symbols missing from the package. To avoid trampling on
    the package namespace (uninvited) put each package's hash in our namespace.
    To avoid creating lots of typeblogs and symbol tables for sub-packages, put
@@ -362,8 +360,6 @@ get_missing_hash(pTHX) {
     SvROK_on(*ref);
     return new_hv;
 }
-
-#endif
 
 MISSING
 
@@ -454,9 +450,7 @@ EOBOOT
 
     print $xs_fh <<"EOBOOT";
 	if (C_ARRAY_LENGTH(values_for_notfound) > 1) {
-#ifndef SYMBIAN
 	    HV *const ${c_subname}_missing = get_missing_hash(aTHX);
-#endif
 	    const struct notfound_s *value_for_notfound = values_for_notfound;
 	    do {
 EOBOOT
@@ -486,9 +480,7 @@ EXPLODE
 						 value_for_notfound->namelen,
 						 HV_FETCH_LVALUE, NULL, 0);
 		SV *sv;
-#ifndef SYMBIAN
 		HEK *hek;
-#endif
 		if (!he) {
 		    croak("Couldn't add key '%s' to %%$package_sprintf_safe\::",
 			  value_for_notfound->name);
@@ -514,14 +506,12 @@ EXPLODE
 		    CvXSUB(cv) = NULL;
 		    CvXSUBANY(cv).any_ptr = NULL;
 		}
-#ifndef SYMBIAN
 		hek = HeKEY_hek(he);
 		if (!hv_common(${c_subname}_missing, NULL, HEK_KEY(hek),
  			       HEK_LEN(hek), HEK_FLAGS(hek), HV_FETCH_ISSTORE,
 			       &PL_sv_yes, HEK_HASH(hek)))
 		    croak("Couldn't add key '%s' to missing_hash",
 			  value_for_notfound->name);
-#endif
 DONT
 
     print $xs_fh "		av_push(push, newSVhek(hek));\n"
@@ -617,7 +607,6 @@ AUTOLOAD()
 EOA
         print $xs_fh <<"EOC";
     PPCODE:
-#ifndef SYMBIAN
 	/* It's not obvious how to calculate this at C pre-processor time.
 	   However, any compiler optimiser worth its salt should be able to
 	   remove the dead code, and hopefully the now-obviously-unused static
@@ -630,7 +619,6 @@ EOA
 			  ", used at %" COP_FILE_F " line %" UVuf "\\n", 
 			  sv, COP_FILE(cop), (UV)CopLINE(cop));
 	} else
-#endif
 	{
 	    sv = newSVpvf("%" SVf
                           " is not a valid $package_sprintf_safe macro at %"
@@ -657,7 +645,6 @@ $xs_subname(sv)
     INPUT:
 	SV *		sv;
     PPCODE:
-#ifndef SYMBIAN
 	/* It's not obvious how to calculate this at C pre-processor time.
 	   However, any compiler optimiser worth its salt should be able to
 	   remove the dead code, and hopefully the now-obviously-unused static
@@ -669,7 +656,6 @@ $xs_subname(sv)
 	    sv = newSVpvf("Your vendor has not defined $package_sprintf_safe macro %" SVf
 			  ", used", sv);
 	} else
-#endif
 	{
 	    sv = newSVpvf("%" SVf " is not a valid $package_sprintf_safe macro",
 			  sv);

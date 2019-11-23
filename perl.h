@@ -86,27 +86,6 @@
 #   undef _WIN32
 #endif
 
-#if defined(__SYMBIAN32__) || (defined(__VC32__) && defined(WINS))
-#   ifndef SYMBIAN
-#       define SYMBIAN
-#   endif
-#endif
-
-#ifdef __SYMBIAN32__
-#  include "symbian/symbian_proto.h"
-#endif
-
-/* Any stack-challenged places.  The limit varies (and often
- * is configurable), but using more than a kilobyte of stack
- * is usually dubious in these systems. */
-#if defined(__SYMBIAN32__)
-/* Symbian: need to work around the SDK features. *
- * On WINS: MS VC5 generates calls to _chkstk,         *
- * if a "large" stack frame is allocated.              *
- * gcc on MARM does not generate calls like these.     */
-#   define USE_HEAP_INSTEAD_OF_STACK
-#endif
-
 /* Use the reentrant APIs like localtime_r and getpwent_r */
 /* Win32 has naturally threadsafe libraries, no need to use any _r variants.
  * XXX KEEP makedef.pl copy of this code in sync */
@@ -309,14 +288,6 @@
  * if it were PERL_UNUSED_DECL(x), which it cannot be (see above).
  *
  */
-
-#if defined(__SYMBIAN32__) && defined(__GNUC__)
-#  ifdef __cplusplus
-#    define PERL_UNUSED_DECL
-#  else
-#    define PERL_UNUSED_DECL __attribute__((unused))
-#  endif
-#endif
 
 #ifndef PERL_UNUSED_DECL
 #  if defined(HASATTRIBUTE_UNUSED) && (!defined(__cplusplus) || __GNUC__ >= 4)
@@ -866,10 +837,6 @@ out of them.
 #   include <sys/wait.h>
 #endif
 
-#ifdef __SYMBIAN32__
-#   undef _SC_ARG_MAX /* Symbian has _SC_ARG_MAX but no sysconf() */
-#endif
-
 #if defined(HAS_SYSCALL) && !defined(HAS_SYSCALL_PROTO)
 EXTERN_C int syscall(int, ...);
 #endif
@@ -1043,7 +1010,7 @@ EXTERN_C int usleep(unsigned int);
 #define PERL_USES_PL_PIDSTATUS
 #endif
 
-#if !defined(OS2) && !defined(WIN32) && !defined(DJGPP) && !defined(__SYMBIAN32__)
+#if !defined(OS2) && !defined(WIN32) && !defined(DJGPP)
 #define PERL_DEFAULT_DO_EXEC3_IMPLEMENTATION
 #endif
 
@@ -1088,9 +1055,7 @@ EXTERN_C int usleep(unsigned int);
 #  define Ptrdiff_t SSize_t
 #endif
 
-#ifndef __SYMBIAN32__
-#  include <string.h>
-#endif
+#include <string.h>
 
 /* This comes after <stdlib.h> so we don't try to change the standard
  * library prototypes; we'll use our own in proto.h instead. */
@@ -2736,8 +2701,6 @@ typedef struct padname PADNAME;
 #   else
 #     include "vos/vosish.h"
 #   endif
-#elif defined(__SYMBIAN32__)
-#   include "symbian/symbianish.h"
 #elif defined(__HAIKU__)
 #   include "haiku/haikuish.h"
 #else
@@ -4026,7 +3989,7 @@ my_swap16(const U16 x) {
 #endif
 
 #ifndef __cplusplus
-#if !(defined(WIN32) || defined(SYMBIAN))
+#if !(defined(WIN32))
 Uid_t getuid (void);
 Uid_t geteuid (void);
 Gid_t getgid (void);

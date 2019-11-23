@@ -395,10 +395,6 @@ sub standard_XS_defs {
 #    define XS_EXTERNAL(name) __declspec(dllexport) XSPROTO(name)
 #    define XS_INTERNAL(name) STATIC XSPROTO(name)
 #  endif
-#  if defined(__SYMBIAN32__)
-#    define XS_EXTERNAL(name) EXPORT_C XSPROTO(name)
-#    define XS_INTERNAL(name) EXPORT_C STATIC XSPROTO(name)
-#  endif
 #  ifndef XS_EXTERNAL
 #    if defined(HASATTRIBUTE_UNUSED) && !defined(__cplusplus)
 #      define XS_EXTERNAL(name) void name(pTHX_ CV* cv __attribute__unused__)

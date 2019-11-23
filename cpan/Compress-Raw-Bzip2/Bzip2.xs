@@ -97,10 +97,6 @@ static const char my_z_errmsg[][32] = {
                 SvNOK_on(var);
 
    
-#if defined(__SYMBIAN32__)
-# define NO_WRITEABLE_DATA
-#endif
-
 /* Set TRACE_DEFAULT to a non-zero value to enable tracing */
 #define TRACE_DEFAULT 0
 
