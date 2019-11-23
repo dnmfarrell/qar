@@ -12,7 +12,7 @@ require AnyDBM_File;
 use Fcntl;
 
 
-$Is_Dosish = ($^O eq 'amigaos' || $^O eq 'MSWin32' ||
+$Is_Dosish = ($^O eq 'MSWin32' ||
 	      $^O eq 'NetWare' || $^O eq 'dos' ||
 	      $^O eq 'os2' ||
 	      $^O eq 'cygwin');

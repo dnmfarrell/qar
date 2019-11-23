@@ -2,11 +2,6 @@
 .lgtm.yml			LGTM.com configuration file
 .metaconf-exclusions.txt	Symbols that should ignored when generating Configure
 .travis.yml		continuous integration on github (where enabled)
-amigaos4/amigaio.c	AmigaOS4 port
-amigaos4/amigaio.h	AmigaOS4 port
-amigaos4/amigaos.c	AmigaOS4 port
-amigaos4/amigaos.h	AmigaOS4 port
-amigaos4/config.sh	AmigaOS4 config
 Artistic		The "Artistic License"
 asan_ignore		Errors to skip under clang's Addresss Sanitizer
 AUTHORS			Contact info for contributors
@@ -3725,7 +3720,6 @@ dist/PathTools/Changes			Changelog for PathTools dist
 dist/PathTools/Cwd.pm				Various cwd routines (getcwd, fastcwd, chdir)
 dist/PathTools/Cwd.xs				Cwd extension external subroutines
 dist/PathTools/lib/File/Spec.pm		portable operations on file names
-dist/PathTools/lib/File/Spec/AmigaOS.pm		portable operations on AmigaOS file names
 dist/PathTools/lib/File/Spec/Cygwin.pm	portable operations on Cygwin file names
 dist/PathTools/lib/File/Spec/Epoc.pm		portable operations on EPOC file names
 dist/PathTools/lib/File/Spec/Functions.pm	Function interface to File::Spec object methods
@@ -4032,20 +4026,6 @@ ebcdic_tables.h		Generated tables included in utfebcdic.h
 embed.fnc		Database used by embed.pl
 embed.h			Maps symbols to safer names
 embedvar.h		C namespace management
-ext/Amiga-ARexx/__examples/simplecommand.pl	Amiga::ARexx extension
-ext/Amiga-ARexx/__examples/simplehost.pl	Amiga::ARexx extension
-ext/Amiga-ARexx/ARexx.pm	Amiga::ARexx extension
-ext/Amiga-ARexx/ARexx.xs	Amiga::ARexx extension
-ext/Amiga-ARexx/Makefile.PL	Amiga::ARexx extension
-ext/Amiga-ARexx/tagtypes.h			Amiga::ARexx extension
-ext/Amiga-ARexx/typemap	Amiga::ARexx extension
-ext/Amiga-Exec/__examples/simplecommand.pl	Amiga::Exec extension
-ext/Amiga-Exec/__examples/simplehost.pl		Amiga::Exec extension
-ext/Amiga-Exec/Exec.pm	Amiga::Exec extension
-ext/Amiga-Exec/Exec.xs	Amiga::Exec extension
-ext/Amiga-Exec/Makefile.PL			Amiga::Exec extension
-ext/Amiga-Exec/tagtypes.h	Amiga::Exec extension
-ext/Amiga-Exec/typemap		Amiga::Exec extension
 ext/attributes/attributes.pm		For "sub foo : attrlist"
 ext/attributes/attributes.xs		For "sub foo : attrlist"
 ext/B/B.pm		Compiler backend support functions and methods
@@ -4553,7 +4533,6 @@ hints/aix.sh			Hints for named architecture
 hints/aix_3.sh			Hints for named architecture
 hints/aix_4.sh			Hints for named architecture
 hints/altos486.sh		Hints for named architecture
-hints/amigaos.sh		Hints for named architecture
 hints/atheos.sh			Hints for named architecture
 hints/aux_3.sh			Hints for named architecture
 hints/bitrig.sh			Hints for named architecture
@@ -5345,7 +5324,6 @@ qnx/cpp				QNX implementation of preprocessor filter
 qnx/qnx.c			QNX silent matherr callback
 README				The Instructions
 README.aix			Perl notes for AIX
-README.amiga			Perl notes for AmigaOS
 README.android			Perl notes for Android
 README.bs2000			Perl notes for POSIX-BC BS2000
 README.cn			Perl for Simplified Chinese (in EUC-CN)

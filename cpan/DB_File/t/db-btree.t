@@ -179,7 +179,7 @@ die "Could not tie: $!" unless $X;
 my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,
    $blksize,$blocks) = stat($Dfile);
 
-my %noMode = map { $_, 1} qw( amigaos MSWin32 NetWare cygwin ) ;
+my %noMode = map { $_, 1} qw( MSWin32 NetWare cygwin ) ;
 
 ok(18, ($mode & 0777) == (($^O eq 'os2' || $^O eq 'MacOS') ? 0666 : 0640)
    || $noMode{$^O} );

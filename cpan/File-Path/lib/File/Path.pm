@@ -33,7 +33,7 @@ BEGIN {
   # These OSes complain if you want to remove a file that you have no
   # write permission to:
   *_FORCE_WRITABLE = (
-    grep { $^O eq $_ } qw(amigaos dos epoc MSWin32 MacOS os2)
+    grep { $^O eq $_ } qw(dos epoc MSWin32 MacOS os2)
   ) ? sub () { 1 } : sub () { 0 };
 
   # Unix-like systems need to stat each directory in order to detect

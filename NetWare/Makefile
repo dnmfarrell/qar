@@ -1310,7 +1310,6 @@ utils: $(BLDDIR)\$(NLM_NAME8).$(NLM_EXT)
 	cd ..\utils
 	$(MAKE) PERL=$(MINIPERL)
 	cd ..\pod
-	copy ..\README.amiga .\perlamiga.pod
 	copy ..\README.cygwin .\perlcygwin.pod
 	copy ..\README.dos .\perldos.pod
 	copy ..\README.hpux .\perlhpux.pod

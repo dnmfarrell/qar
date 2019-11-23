@@ -2675,18 +2675,6 @@ nothing in the core.
 		{
 		    tot--;
 		}
-#if defined(__amigaos4__) && defined(NEWLIB)
-		else
-		{
-                  /* Under AmigaOS4 unlink only 'fails' if the
-                   * filename is invalid.  It may not remove the file
-                   * if it's locked, so check if it's still around. */
-                  if ((access(s,F_OK) != -1))
-                  {
-                    tot--;
-                  }
-		}
-#endif
 	    }
 	    else {	/* don't let root wipe out directories without -U */
 		Stat_t statbuf;
@@ -2701,18 +2689,6 @@ nothing in the core.
 		    {
 				tot--;
 			}
-#if defined(__amigaos4__) && defined(NEWLIB)
-			else
-			{
-				/* Under AmigaOS4 unlink only 'fails' if the filename is invalid */
-				/* It may not remove the file if it's Locked, so check if it's still */
-				/* arround */
-				if((access(s,F_OK) != -1))
-				{
-					tot--;
-				}
-			}	
-#endif
 		}
 	    }
 	}

@@ -1682,13 +1682,6 @@ perl_parse(pTHXx_ XSINIT_t xsinit, int argc, char **argv, char **env)
     }
 #endif /* #if (defined(USE_HASH_SEED) ... */
 
-#ifdef __amigaos4__
-    {
-        struct NameTranslationInfo nti;
-        __translate_amiga_to_unix_path_name(&argv[0],&nti); 
-    }
-#endif
-
     {
 	int i;
 	assert(argc >= 0);

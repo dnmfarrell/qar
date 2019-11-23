@@ -70,10 +70,6 @@ esac
 PATH=".$path_sep..$path_sep$PATH"
 export PATH
 
-case "$osname" in
-amigaos) cat=/bin/cat ;; # must be absolute
-esac
-
 $cat /dev/null >.deptmp
 $rm -f *.c.c c/*.c.c
 if test -f Makefile; then

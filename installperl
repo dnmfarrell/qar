@@ -11,7 +11,7 @@ BEGIN {
 }
 
 use strict;
-our ($Is_VMS, $Is_W32, $Is_OS2, $Is_Cygwin, $Is_Darwin, $Is_NetWare, $Is_AmigaOS,
+our ($Is_VMS, $Is_W32, $Is_OS2, $Is_Cygwin, $Is_Darwin, $Is_NetWare,
 	    %opts, $packlist);
 my $versiononly;
 
@@ -21,11 +21,8 @@ BEGIN {
 
 # HP-UX (at least) needs to maintain execute permissions
 # on dynamically-loadable libraries. So we do it for all.
-#
-# In AmigaOS, the 0777 means 'rwed' (e = execute, d = delete),
-# (not 'rwx') and having the 'd' makes updates more convenient.
-my $SO_MODE     = $Is_AmigaOS ? 0777 : 0555;
-my $NON_SO_MODE = $Is_AmigaOS ? 0666 : 0444;
+my $SO_MODE     = 0555;
+my $NON_SO_MODE = 0444;
 
 my $scr_ext = ($Is_VMS ? '.Com' : $Is_W32 ? '.bat' : '');
 
@@ -514,10 +511,6 @@ if ($versiononly) {
 	(my $base = $_) =~ s#.*/##;
 	copy($_, "$installscript/$base");
 	chmod(0755, "$installscript/$base");
-	if ($Is_AmigaOS) {
-            my $amigapath = unixtoamiga("$installscript/$base");
-            amigaprotect($amigapath,"+s");
-        }
     }
 
     for (@tolink) {

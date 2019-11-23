@@ -119,7 +119,6 @@ use constant GZIP_ISIZE_MOD_VALUE   => GZIP_ISIZE_MAX + 1 ;
 use constant GZIP_OS_DEFAULT=> 0xFF ;
 %GZIP_OS_Names = (
     0   => 'MS-DOS',
-    1   => 'Amiga',
     2   => 'VMS',
     3   => 'Unix',
     4   => 'VM/CMS',

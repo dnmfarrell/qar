@@ -2,7 +2,6 @@ Changes
 Cwd.pm
 Cwd.xs
 lib/File/Spec.pm
-lib/File/Spec/AmigaOS.pm
 lib/File/Spec/Cygwin.pm
 lib/File/Spec/Epoc.pm
 lib/File/Spec/Functions.pm

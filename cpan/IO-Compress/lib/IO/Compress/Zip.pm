@@ -1392,8 +1392,8 @@ filename header field.
     The path stored should not contain a drive or
     device letter, or a leading slash.  All slashes
     should be forward slashes '/' as opposed to
-    backwards slashes '\' for compatibility with Amiga
-    and UNIX file systems etc.
+    backwards slashes '\' for compatibility with UNIX
+    file systems.
 
 This option defaults to B<false>.
 

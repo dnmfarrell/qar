@@ -397,7 +397,6 @@ BEGIN
 {
   @GZIP_OS_Names = (
     [ ''        => 0,    'MS-DOS'                       ],
-    [ 'amigaos' => 1,    'Amiga'                        ],
     [ 'VMS'     => 2,    'VMS'                          ],
     [ ''        => 3,    'Unix/Default'                 ],
     [ ''        => 4,    'VM/CMS'                       ],

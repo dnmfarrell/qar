@@ -202,7 +202,7 @@ my $X  ;
 my @h ;
 ok(17, $X = tie @h, 'DB_File', $Dfile, O_RDWR|O_CREAT, 0640, $DB_RECNO ) ;
 
-my %noMode = map { $_, 1} qw( amigaos MSWin32 NetWare cygwin ) ;
+my %noMode = map { $_, 1} qw( MSWin32 NetWare cygwin ) ;
 
 ok(18, ((stat($Dfile))[2] & 0777) == (($^O eq 'os2' || $^O eq 'MacOS') ? 0666 : 0640)
 	||  $noMode{$^O} );

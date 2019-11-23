@@ -588,7 +588,7 @@ do_test('scalar with pos magic',
 ');
 
 #
-# TAINTEDDIR is not set on: OS2, AMIGAOS, WIN32, MSDOS
+# TAINTEDDIR is not set on: OS2, WIN32, MSDOS
 # environment variables may be invisibly case-forced, hence the (?i:PATH)
 # C<scalar(@ARGV)> is turned into an IV on VMS hence the (?:IV)?
 # Perl 5.18 ensures all env vars end up as strings only, hence the (?:,pIOK)?

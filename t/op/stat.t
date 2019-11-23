@@ -34,7 +34,6 @@ my $Perl = which_perl();
 $ENV{LC_ALL}   = 'C';		# Forge English error messages.
 $ENV{LANGUAGE} = 'C';		# Ditto in GNU.
 
-my $Is_Amiga   = $^O eq 'amigaos';
 my $Is_Cygwin  = $^O eq 'cygwin';
 my $Is_Darwin  = $^O eq 'darwin';
 my $Is_Dos     = $^O eq 'dos';
@@ -140,8 +139,6 @@ SKIP: {
                                         $mtime && $mtime == $ctime;
         skip "AFS has different mtime/ctime link semantics", 2
                                      if $cwd =~ m#$Config{'afsroot'}/#;
-        skip "AmigaOS has different mtime/ctime link semantics", 2
-                                     if $Is_Amiga;
         # Win32 could pass $mtime test but as FAT and NTFS have
         # no ctime concept $ctime is ALWAYS == $mtime
         # expect netware to be the same ...

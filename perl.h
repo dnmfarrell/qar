@@ -858,21 +858,7 @@ out of them.
 
 /* If this causes problems, set i_unistd=undef in the hint file.  */
 #ifdef I_UNISTD
-#    if defined(__amigaos4__)
-#        ifdef I_NETINET_IN
-#            include <netinet/in.h>
-#        endif
-#   endif
 #   include <unistd.h>
-#   if defined(__amigaos4__)
-/* Under AmigaOS 4 newlib.library provides an environ.  However using
- * it doesn't give us enough control over inheritance of variables by
- * subshells etc. so replace with custom version based on abc-shell
- * code. */
-extern char **myenviron;
-#       undef environ
-#       define environ myenviron
-#   endif
 #endif
 
 /* for WCOREDUMP */
@@ -2758,11 +2744,6 @@ typedef struct padname PADNAME;
 #   include "unixish.h"
 #endif
 
-#ifdef __amigaos4__
-#    include "amigaos.h"
-#    undef FD_CLOEXEC /* a lie in AmigaOS */
-#endif
-
 /* NSIG logic from Configure --> */
 #ifndef NSIG
 #  ifdef _NSIG
@@ -3326,32 +3307,6 @@ EXTERN_C int perl_tsa_mutex_unlock(perl_mutex* mutex)
 #   define STATUS_ALL_FAILURE	(PL_statusvalue = 1, \
      vaxc$errno = PL_statusvalue_vms = MY_POSIX_EXIT ? \
 	(C_FAC_POSIX | (1 << 3) | STS$K_ERROR | STS$M_INHIB_MSG) : SS$_ABORT)
-
-#elif defined(__amigaos4__)
- /* A somewhat experimental attempt to simulate posix return code values */
-#   define STATUS_NATIVE	PL_statusvalue_posix
-#   define STATUS_NATIVE_CHILD_SET(n)                      \
-        STMT_START {                                       \
-            PL_statusvalue_posix = (n);                    \
-            if (PL_statusvalue_posix < 0) {                \
-                PL_statusvalue = -1;                       \
-            }                                              \
-            else {                                         \
-                PL_statusvalue = n << 8;                   \
-            }                                              \
-        } STMT_END
-#   define STATUS_UNIX_SET(n)		\
-	STMT_START {			\
-	    PL_statusvalue = (n);		\
-	    if (PL_statusvalue != -1)	\
-		PL_statusvalue &= 0xFFFF;	\
-	} STMT_END
-#   define STATUS_UNIX_EXIT_SET(n) STATUS_UNIX_SET(n)
-#   define STATUS_EXIT_SET(n) STATUS_UNIX_SET(n)
-#   define STATUS_CURRENT STATUS_UNIX
-#   define STATUS_EXIT STATUS_UNIX
-#   define STATUS_ALL_SUCCESS	(PL_statusvalue = 0, PL_statusvalue_posix = 0)
-#   define STATUS_ALL_FAILURE	(PL_statusvalue = 1, PL_statusvalue_posix = 1)
 
 #else
 #   define STATUS_NATIVE	PL_statusvalue_posix
@@ -7056,10 +7011,6 @@ C<strtoul>.
 #  include <fcntl.h>
 #endif
 
-#ifdef __amigaos4__
-#  undef FD_CLOEXEC /* a lie in AmigaOS */
-#endif
-
 #ifdef I_SYS_FILE
 #  include <sys/file.h>
 #endif
@@ -7255,7 +7206,7 @@ Allows one ending \0
 
 #define IS_SAFE_PATHNAME(p, len, op_name) IS_SAFE_SYSCALL((p), (len), "pathname", (op_name))
 
-#if defined(OEMVS) || defined(__amigaos4__)
+#if defined(OEMVS)
 #define NO_ENV_ARRAY_IN_MAIN
 #endif
 

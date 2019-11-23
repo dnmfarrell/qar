@@ -20,14 +20,7 @@ case $PERL_CONFIG_SH in
 	;;
 esac
 
-case "$osname" in
-amigaos)
-	devtty=CONSOLE:
-	;;
-*)
-	devtty=/dev/tty
-	;;
-esac
+devtty=/dev/tty
 
 Makefile=Makefile
 
@@ -768,21 +761,6 @@ generate_uudmap$(HOST_EXE_EXT): generate_uudmap$(OBJ_EXT)
 ;;
 esac
 
-case "$osname" in
-amigaos*)
-$spitshell >>$Makefile <<'!NO!SUBS!'
-perlmain.c: $(MINIPERL_EXE) ext/ExtUtils-Miniperl/pm_to_blib
-	$(MINIPERL) -MExtUtils::Miniperl -e 'writemain(\\"perlmain.c", @ARGV)' DynaLoader $(static_ext)
-
-# The file ext.libs is a list of libraries that must be linked in
-# for static extensions, e.g. -lm -lgdbm, etc.  The individual
-# static extension Makefile's add to it.
-ext.libs: $(static_ext)
-	-@test -f ext.libs || touch ext.libs
-
-!NO!SUBS!
-;;
-*)
 $spitshell >>$Makefile <<'!NO!SUBS!'
 perlmain.c: $(MINIPERL_EXE) ext/ExtUtils-Miniperl/pm_to_blib
 	$(MINIPERL) -MExtUtils::Miniperl -e 'writemain(\"perlmain.c", @ARGV)' DynaLoader $(static_ext)
@@ -794,8 +772,6 @@ ext.libs: $(static_ext)
 	-@test -f ext.libs || touch ext.libs
 
 !NO!SUBS!
-;;
-esac
 
 # How to build libperl.  This is still rather convoluted.
 # Load up custom Makefile.SH fragment for shared loading and executables:
@@ -976,16 +952,6 @@ $(MINIPERL_EXE): lib/buildcustomize.pl
 !NO!SUBS!
 
 	case "${osname}${osvers}" in
-	amigaos*)
-		$spitshell >>$Makefile <<'!NO!SUBS!'
-lib/buildcustomize.pl: $& $(miniperl_objs) write_buildcustomize.pl
-	-@rm -f miniperl.xok
-	$(CC) $(CLDFLAGS) -o $(MINIPERL_EXE) \
-	    $(miniperl_objs) $(libs)
-#	$(LDLIBPTH) ./miniperl$(HOST_EXE_EXT) -w -Ilib -Idist/Exporter/lib -MExporter -e '<?>' || sh -c 'echo >&2 Failed to build miniperl.  Please run make minitest; exit 1'
-	$(MINIPERL) -f write_buildcustomize.pl
-!NO!SUBS!
-		;;
 	aix*)
 		$spitshell >>$Makefile <<'!NO!SUBS!'
 lib/buildcustomize.pl: $& $(miniperl_objs)
@@ -1054,12 +1020,6 @@ $(PERL_EXE): $& $(perlmain_dep) $(LIBPERL) $(static_ext) ext.libs $(PERLEXPORT) 
 !NO!SUBS!
 
         case $osname in
-	# In AmigaOS the Perl executable needs to be linked with -ldl,
-	# but none of the other executables should be.
-        amigaos) $spitshell >>$Makefile <<'!NO!SUBS!'
-	$(SHRPENV) $(CC) -o perl $(CLDFLAGS) $(CCDLFLAGS) $(perlmain_objs) $(LLIBPERL) $(static_ext) `cat ext.libs` $(libs) -ldl
-!NO!SUBS!
-        ;;
         os390) $spitshell >>$Makefile <<'!NO!SUBS!'
 	$(SHRPENV) $(CC) -o perl $(CLDFLAGS) $(CCDLFLAGS) $(perlmain_objs) $(LLIBPERL) $(static_ext) `cat ext.libs` $(libs)
 !NO!SUBS!
@@ -1471,7 +1431,6 @@ _cleaner2:
 	-rmdir lib/CPAN/Kwalify lib/CPAN/HTTP lib/CPAN/FTP lib/CPAN/Exception
 	-rmdir lib/CPAN/API lib/CPAN lib/Attribute lib/Archive/Tar lib/Archive
 	-rmdir lib/App/Prove/State/Result lib/App/Prove/State lib/App/Prove
-	-rmdir lib/App lib/Amiga
 
 _realcleaner:
 	@$(LDLIBPTH) $(MAKE) _cleaner1 CLEAN=distclean

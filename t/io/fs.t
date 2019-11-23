@@ -38,7 +38,7 @@ my $has_link            = $Config{d_link};
 my $accurate_timestamps =
     !($^O eq 'MSWin32' || $^O eq 'NetWare' ||
       $^O eq 'dos'     || $^O eq 'os2'     ||
-      $^O eq 'cygwin'  || $^O eq 'amigaos' ||
+      $^O eq 'cygwin'  ||
 	  $wd =~ m#$Config{afsroot}/#
      );
 
@@ -119,7 +119,6 @@ SKIP: {
     }
 
     SKIP: {
-        skip "hard links not that hard in $^O", 1 if $^O eq 'amigaos';
         skip "no mode checks", 1 if $skip_mode_checks;
 
         is(sprintf("0%o", $mode & 0777),

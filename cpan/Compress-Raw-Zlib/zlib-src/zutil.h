@@ -103,10 +103,6 @@ extern z_const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #  endif
 #endif
 
-#ifdef AMIGA
-#  define OS_CODE  1
-#endif
-
 #if defined(VAXC) || defined(VMS)
 #  define OS_CODE  2
 #  define F_OPEN(name, mode) \

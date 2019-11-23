@@ -169,7 +169,7 @@ my $TEST = 'TEST';
     }
 
     my $tmp;
-    if ($^O eq 'os2' || $^O eq 'amigaos' || $Is_MSWin32 || $Is_NetWare || $Is_Dos) {
+    if ($^O eq 'os2' || $Is_MSWin32 || $Is_NetWare || $Is_Dos) {
 	print "# all directories are writeable\n";
     }
     else {
@@ -1318,8 +1318,6 @@ violates_taint(sub { link $TAINT, '' }, 'link');
     my $foo = $TAINT;
 
     SKIP: {
-        skip "open('|') is not available", 8 if $^O eq 'amigaos';
-
         violates_taint(sub { open FOO, "| x$foo" }, 'piped open', 'popen to');
         violates_taint(sub { open FOO, "x$foo |" }, 'piped open', 'popen from');
         violates_taint(sub { open my $fh, '|-', "x$foo" }, 'piped open', 'popen to');
